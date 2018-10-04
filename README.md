@@ -1,21 +1,21 @@
-# uchi-widget
+# Виджет с курсами для клиентких сайтов.
 
-## Project setup
+## Установка
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Компиляция и хот-релоад
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Сборка для продакшена
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Фикс код линтером
 ```
 npm run lint
 ```
