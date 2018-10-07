@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Vue from 'vue'
 import App from './App.vue'
+import Helpers from './mixins/helpers'
 
 Vue.config.productionTip = false
 
@@ -16,40 +17,67 @@ if (container != null) {
       data: function () {
         return {
           baseUrl: baseUrl,
-          token: token,
-          courses: [],
-          tree: false,
-          response: null,
-          cart: [],
+          rootId: '00000000-0000-0000-0000-000000000000',
         }
       },
+      methods: Helpers
+    })
+
+    new Vue({
+      el: container,
+      data: {
+        coursesFetched: false,
+        token: token,
+        storageKey: 'uchi-widget:cart',
+        courses: [],
+        response: null,
+        cart: [],
+      },
       created () {
-        this.fetchCourses()
+        this
+          .fetchCourses()
+          .then(() => {
+            this.coursesFetched = true
+
+            this.restoreCartFromStorage()
+          })
       },
       methods: {
+        fetchWidgetData () {
+          return new Promise((resolve) => {
+            // return fetch(`${this.baseUrl}/orders-widget/courses?token=${this.token}`, { headers: { 'Accept': 'application/json' } })
+            //   .then(response => response.json())
+
+            return resolve(require('./fake-courses'))
+          })
+        },
         fetchCourses () {
-          return fetch(`${this.baseUrl}/orders-widget/courses?token=${this.token}`, { headers: { 'Accept': 'application/json' } })
-            .then(response => response.json())
+          return this.fetchWidgetData()
             .then(data => {
               this.response = JSON.parse(JSON.stringify(data))
               return data
             })
-            .then(data => data.Courses)
+            .then(data => data.Courses || [])
             .then(fetchedCourses => {
 
-              this.courses = fetchedCourses.map(course => {
-                if (course.parent_uuid !== '00000000-0000-0000-0000-000000000000') {
-                  this.tree = true
+              const coursesPlainList = fetchedCourses.map(fetchedCourse => {
+                return {
+                  id: fetchedCourse.uuid,
+                  title: fetchedCourse.title,
+                  description: fetchedCourse.description,
+                  parentId: fetchedCourse.parent_uuid,
+                  price: fetchedCourse.price,
                 }
-                course.children = fetchedCourses.filter(c => c.parent_uuid === course.uuid)
-
-                return course
               })
 
-              this.restoreCartFromStorage()
+              this.courses = coursesPlainList.map(course => {
+                course.children = coursesPlainList.filter(c => c.parentId === course.id)
+                return course
+              })
             })
             .catch(e => {
               console.error('Uchi.pro widget: не удалось получить данные курсов.');
+              console.error(e)
             })
         },
         addToCart (course, quantity) {
@@ -70,69 +98,46 @@ if (container != null) {
 
           this.saveCartToStorage()
         },
+        inCart (course) {
+          return this.cart.findIndex(item => item.course.id == course.id) !== -1
+        },
         clearCart() {
           this.cart = []
 
           this.saveCartToStorage()
         },
-        inCart (course) {
-          return ~this.cart.findIndex(item => item.course === course)
-        },
         saveCartToStorage () {
-
           const stamp = this.cart.map(
             item => {
               return {
                 quantity: item.quantity,
-                uuid: item.course.uuid,
+                id: item.course.id,
               }
             })
 
-          localStorage.setItem('uchi-widget:cart', JSON.stringify(stamp))
+          localStorage.setItem(this.storageKey, JSON.stringify(stamp))
         },
         restoreCartFromStorage () {
-          const json = localStorage.getItem('uchi-widget:cart')
+          const json = localStorage.getItem(this.storageKey)
 
-          try {
-            const stamp = JSON.parse(json)
+          if (json) {
+            try {
+              const stamp = JSON.parse(json)
 
-            stamp.forEach(value => {
-              const course = this.courses.find(course => course.uuid === value.uuid)
+              stamp.forEach(value => {
+                const course = this.courses.find(
+                  course => course.id === value.id)
 
-              if (course) {
-                this.addToCart(course, value.quantity)
-              }
-            })
-          } catch (e) {
-
+                if (course) {
+                  this.addToCart(course, value.quantity)
+                }
+              })
+            } catch (e) {
+              console.error(e)
+            }
           }
         },
-        formatPrice (value) {
-          value = value || 0
-
-          let val = (value/1).toFixed(0).replace(' ')
-          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.'
-        },
-        plural (number, one, two, five) {
-          let n = Math.abs(number);
-          n %= 100;
-          if (n >= 5 && n <= 20) {
-            return five;
-          }
-          n %= 10;
-          if (n === 1) {
-            return one;
-          }
-          if (n >= 2 && n <= 4) {
-            return two;
-          }
-          return five;
-        },
-      }
-    })
-
-    new Vue({
-      el: container,
+      },
       render: function (createElement) {
         return createElement(App)
       }
