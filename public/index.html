@@ -4,14 +4,32 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>uchi-widget</title>
   </head>
   <body>
 
-    <div id="uchi-cart"></div>
+  <div id="uchi-widget"></div>
 
-    <div id="uchi-widget" data-token="superpupertoken"></div>
+    <script type="text/javascript" >
+      (function (d, w) {
+
+        w.uchiWidget = {
+          baseUrl: "http://192.168.128.58:8080",
+          token: "3263f2fb-59d6-4aa5-bfb0-e4b0de784065"
+        };
+
+        var n = d.getElementsByTagName("script")[0],
+          s = d.createElement("script"),
+          f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = w.uchiWidget + "/widget.js";
+
+        if (w.opera == "[object Opera]") {
+          d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+      })(document, window);
+    </script>
 
   </body>
 </html>

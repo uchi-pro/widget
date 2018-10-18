@@ -1,16 +1,21 @@
 /* eslint-disable no-console */
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import App from './App.vue'
 import Helpers from './mixins/helpers'
 
 Vue.config.productionTip = false
 
+Vue.use(VueRouter)
+
 const container = document.getElementById('uchi-widget');
+
+console.log(45646456);
 
 if (container != null) {
 
-  const baseUrl = 'http://uchi.local'
-  const token = container.dataset.token || null
+  const baseUrl = window.uchiWidget.baseUrl
+  const token = window.uchiWidget.token
 
   if (token != null) {
     Vue.mixin({
@@ -23,8 +28,20 @@ if (container != null) {
       methods: Helpers
     })
 
+    const routes = [
+      { name: 'subject_list', path: '/', component: require('./components/Subjects').default },
+      { name: 'subject_view', path: '/subjects/:id', component: require('./components/Subject').default },
+      { name: 'course_view', path: '/courses/:id', component: require('./components/Course').default },
+      { name: 'cart', path: '/cart', component: require('./components/Cart').default },
+    ]
+
+    const router = new VueRouter({
+      routes
+    })
+
     new Vue({
       el: container,
+      router,
       data: {
         coursesFetched: false,
         token: token,
@@ -45,19 +62,27 @@ if (container != null) {
       methods: {
         fetchWidgetData () {
           return new Promise((resolve) => {
-            // return fetch(`${this.baseUrl}/orders-widget/courses?token=${this.token}`, { headers: { 'Accept': 'application/json' } })
-            //   .then(response => response.json())
+            return fetch(`${this.baseUrl}/orders-widget/courses?token-api=${this.token}`,
+              {
+                // method: 'post',
+                headers: { 'Accept': 'application/json' },
+                // body: `token-api=${this.token}`
+              })
+              .then(response => {
+                resolve(response.json())
+              })
 
-            return resolve(require('./fake-courses'))
+            // return resolve(require('./fake-courses'))
           })
         },
         fetchCourses () {
           return this.fetchWidgetData()
             .then(data => {
               this.response = JSON.parse(JSON.stringify(data))
+              console.log(JSON.parse(JSON.stringify(data)));
               return data
             })
-            .then(data => data.Courses || [])
+            .then(data => data.courses || [])
             .then(fetchedCourses => {
 
               const coursesPlainList = fetchedCourses.map(fetchedCourse => {
@@ -147,5 +172,5 @@ if (container != null) {
     console.error('Uchi.pro widget: токен не указан.');
   }
 } else {
-  console.error('Uchi.pro widget: конейнер не найден.');
+  console.error('Uchi.pro widget: контейнер не найден.');
 }
