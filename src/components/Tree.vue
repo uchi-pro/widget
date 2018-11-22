@@ -129,7 +129,7 @@ export default {
     cart () {
       return this.$root.$data.cart
     },
-    topLevelCourses () {
+    topLevelThemes () {
       return this.$root.$data.courses
         .filter(course => (course.parentId === this.rootId) && course.children.length > 0)
     },

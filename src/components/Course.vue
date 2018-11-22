@@ -1,31 +1,41 @@
 <template>
     <div>
 
-        <router-link :to="{ name: 'subject_list' }">Все курсы</router-link>
+        <h1>Учебный курс по направлению «{{ theme.title }}»</h1>
 
-        <h1>{{ course.title }}</h1>
-
-        <div>
-            {{ subject.title }}
+        <div class="uchi-course__title-wrapper">
+            <div class="uchi-course__title-label">Название курса:</div>
+            <div class="uchi-course__title">
+                {{ course.title }}
+            </div>
         </div>
 
-        <div>
-            {{ formatPrice(course.price) }} руб.
+        <div class="uchi-course__price">
+            Стоимость: {{ formatPrice(course.price) }}
         </div>
 
-        <div v-html="course.description"></div>
+        <div v-html="course.description" class="uchi-course__description"></div>
 
         <div>
             <button v-if="inCart(course)"
                     @click="removeFromCart(course)"
-                    class="button button_in-сart">
-                из корзины
+                    class="uchi-cart-button uchi-cart-button_in-cart">
+                в корзине
             </button>
             <button v-else
                     @click="addToCart(course)"
-                    class="button">
+                    class="uchi-cart-button">
                 в корзину
             </button>
+        </div>
+
+        <div class="uchi__back">
+            <p>
+                <router-link :to="{ name: 'theme_view', params: { id: theme.id } }">&larr; Вернуться к списку курсов направления {{ theme.title }}</router-link>
+            </p>
+            <p>
+                <router-link :to="{ name: 'theme_list' }">&larr;&nbsp;Вернуться к списку всех направлений</router-link>
+            </p>
         </div>
     </div>
 </template>
@@ -54,9 +64,27 @@ export default {
     course () {
       return this.$root.$data.courses.filter(course => course.id === this.id)[0] || null
     },
-    subject () {
+    theme () {
       return this.course ? this.$root.$data.courses.filter(course => course.id === this.course.parentId)[0] || null : null
     }
   }
 }
 </script>
+
+<style lang="scss">
+
+    .uchi-course {
+        &__title-wrapper {
+            margin-bottom: 20px;
+        }
+
+        &__price {
+            margin-bottom: 20px;
+        }
+
+        &__description {
+            margin-bottom: 20px;
+        }
+    }
+
+</style>

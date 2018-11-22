@@ -10,12 +10,16 @@ Vue.use(VueRouter)
 
 const container = document.getElementById('uchi-widget');
 
-console.log(45646456);
-
 if (container != null) {
 
   const baseUrl = window.uchiWidget.baseUrl
   const token = window.uchiWidget.token
+
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('type', 'text/css');
+  link.setAttribute('href', window.uchiWidget.baseUrl + '/widget/widget.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
 
   if (token != null) {
     Vue.mixin({
@@ -29,8 +33,8 @@ if (container != null) {
     })
 
     const routes = [
-      { name: 'subject_list', path: '/', component: require('./components/Subjects').default },
-      { name: 'subject_view', path: '/subjects/:id', component: require('./components/Subject').default },
+      { name: 'theme_list', path: '/', component: require('./components/Themes').default },
+      { name: 'theme_view', path: '/themes/:id', component: require('./components/Theme').default },
       { name: 'course_view', path: '/courses/:id', component: require('./components/Course').default },
       { name: 'cart', path: '/cart', component: require('./components/Cart').default },
     ]
@@ -49,6 +53,7 @@ if (container != null) {
         courses: [],
         response: null,
         cart: [],
+        isCartOpened: false,
       },
       created () {
         this
@@ -64,9 +69,7 @@ if (container != null) {
           return new Promise((resolve) => {
             return fetch(`${this.baseUrl}/orders-widget/courses?token-api=${this.token}`,
               {
-                // method: 'post',
                 headers: { 'Accept': 'application/json' },
-                // body: `token-api=${this.token}`
               })
               .then(response => {
                 resolve(response.json())
@@ -79,7 +82,6 @@ if (container != null) {
           return this.fetchWidgetData()
             .then(data => {
               this.response = JSON.parse(JSON.stringify(data))
-              console.log(JSON.parse(JSON.stringify(data)));
               return data
             })
             .then(data => data.courses || [])
@@ -89,6 +91,7 @@ if (container != null) {
                 return {
                   id: fetchedCourse.uuid,
                   title: fetchedCourse.title,
+                  imageUrl: fetchedCourse.img_url,
                   description: fetchedCourse.description,
                   parentId: fetchedCourse.parent_uuid,
                   price: fetchedCourse.price,
@@ -99,6 +102,8 @@ if (container != null) {
                 course.children = coursesPlainList.filter(c => c.parentId === course.id)
                 return course
               })
+
+              console.log(this.courses);
             })
             .catch(e => {
               console.error('Uchi.pro widget: не удалось получить данные курсов.');
@@ -114,6 +119,8 @@ if (container != null) {
           }
 
           this.saveCartToStorage()
+
+          this.isCartOpened = true
         },
         removeFromCart (course) {
           const itemIndex = this.cart.findIndex(item => item.course === course)
@@ -162,6 +169,12 @@ if (container != null) {
             }
           }
         },
+        openCart () {
+          this.isCartOpened = true
+        },
+        closeCart () {
+          this.isCartOpened = false
+        }
       },
       render: function (createElement) {
         return createElement(App)
