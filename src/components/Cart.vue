@@ -11,7 +11,7 @@
       <div class="uchi-cart-table">
         <div v-for="item in cart" :key="item.course.id" class="uchi-cart-item">
           <div class="uchi-cart-item__title">
-            {{ item.course.title }}
+            <router-link :to="{ name: 'course_view', 'params': { id: item.course.id }}">{{ item.course.title }}</router-link>
           </div>
           <div class="uchi-cart-item__price">
             {{ formatPrice(item.course.price) }}
