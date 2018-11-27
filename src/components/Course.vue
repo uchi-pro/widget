@@ -1,6 +1,10 @@
 <template>
   <div>
 
+    <div class="uchi__back">
+      <router-link :to="{ name: 'theme_view', params: { id: theme.id } }">&larr; Вернуться к списку курсов направления</router-link>
+    </div>
+
     <h1>Учебный курс по направлению «{{ theme.title }}»</h1>
 
     <div class="uchi-course__title-wrapper">
@@ -29,16 +33,6 @@
       </button>
     </div>
 
-    <div class="uchi__back">
-      <p>
-        <router-link :to="{ name: 'theme_view', params: { id: theme.id } }">&larr; Вернуться к списку курсов направления
-          {{ theme.title }}
-        </router-link>
-      </p>
-      <p>
-        <router-link :to="{ name: 'theme_list' }">&larr;&nbsp;Вернуться к списку всех направлений</router-link>
-      </p>
-    </div>
   </div>
 </template>
 

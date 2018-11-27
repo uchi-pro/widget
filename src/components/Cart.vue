@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="uchi__back">
+      <router-link :to="{ name: 'theme_list' }">&larr;&nbsp;Вернуться ко всем курсам</router-link>
+    </div>
+
     <h1>Корзина</h1>
 
     <div v-if="inCartCoursesCount > 0">
@@ -37,10 +41,6 @@
     </div>
     <div v-else>
       Корзина пуста.
-    </div>
-
-    <div class="uchi__back">
-      <router-link :to="{ name: 'theme_list' }">&larr;&nbsp;Вернуться ко всем курсам</router-link>
     </div>
 
   </div>

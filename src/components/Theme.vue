@@ -1,6 +1,10 @@
 <template>
   <div>
 
+    <div class="uchi__back">
+        <router-link :to="{ name: 'theme_list' }">&larr; Вернуться к списку всех направлений</router-link>
+    </div>
+
     <h1>{{ theme.title }}</h1>
 
     <div v-for="course in theme.children" :key="course.id" class="uchi-courses">
@@ -22,12 +26,6 @@
           </button>
         </div>
       </div>
-    </div>
-
-    <div class="uchi__back">
-      <p>
-        <router-link :to="{ name: 'theme_list' }">&larr; Вернуться к списку всех направлений</router-link>
-      </p>
     </div>
   </div>
 </template>
