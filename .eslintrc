@@ -1,0 +1,12 @@
+{
+  "extends": "standard",
+  "rules": {
+    "comma-dangle": "off",
+    "eqeqeq": "warn",
+    "indent": "warn",
+    "semi": "warn"
+  },
+  "plugins": [
+    "compat"
+  ]
+}
