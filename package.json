@@ -1,10 +1,10 @@
 {
   "name": "uchi-widget",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && scp dist/js/*.js pavel:/home/agl7r/widget/widget.js && scp dist/css/*.css pavel:/home/agl7r/widget/widget.css",
+    "build": "vue-cli-service build && scp dist/js/*.js uchi.pro:/var/www/cdn/widget/v1/uchi-widget.js && scp dist/css/*.css uchi.pro:/var/www/cdn/widget/v1/uchi-widget.css",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -16,6 +16,13 @@
     "@vue/cli-plugin-eslint": "^3.0.0-rc.7",
     "@vue/cli-service": "^3.0.0-rc.7",
     "autoprefixer": "^9.3.1",
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "12.x",
+    "eslint-plugin-compat": "2.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-node": "7.x",
+    "eslint-plugin-promise": "4.x",
+    "eslint-plugin-standard": "4.x",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.17"

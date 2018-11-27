@@ -8,5 +8,10 @@
   },
   "plugins": [
     "compat"
-  ]
+  ],
+  "globals": {
+    "console": true,
+    "localStorage": true,
+    "fetch": true
+  }
 }

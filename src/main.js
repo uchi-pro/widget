@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+'use strict'
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
@@ -8,20 +9,19 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
-const container = document.getElementById('uchi-widget');
+const container = document.getElementById('uchi-widget')
 
 if (container != null) {
-
   const baseUrl = window.uchiWidget.baseUrl
   const token = window.uchiWidget.token
 
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('type', 'text/css');
-  link.setAttribute('href', window.uchiWidget.baseUrl + '/widget/widget.css');
-  document.getElementsByTagName('head')[0].appendChild(link);
-
   if (token != null) {
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('type', 'text/css')
+    link.setAttribute('href', window.uchiWidget.cdnBaseUrl + '/uchi-widget.css')
+    document.getElementsByTagName('head')[0].appendChild(link)
+
     Vue.mixin({
       data: function () {
         return {
@@ -51,7 +51,6 @@ if (container != null) {
         token: token,
         storageKey: 'uchi-widget:cart',
         courses: [],
-        response: null,
         cart: [],
         isCartOpened: false,
       },
@@ -74,19 +73,21 @@ if (container != null) {
               .then(response => {
                 resolve(response.json())
               })
+              .catch(error => {
+                console.log(error)
+                console.log(container)
 
-            // return resolve(require('./fake-courses'))
+                container.innerText = 'Не удалось получить список курсов. Попробуйте зайти позже.'
+              })
           })
         },
         fetchCourses () {
           return this.fetchWidgetData()
             .then(data => {
-              this.response = JSON.parse(JSON.stringify(data))
               return data
             })
             .then(data => data.courses || [])
             .then(fetchedCourses => {
-
               const coursesPlainList = fetchedCourses.map(fetchedCourse => {
                 return {
                   id: fetchedCourse.uuid,
@@ -103,10 +104,10 @@ if (container != null) {
                 return course
               })
 
-              console.log(this.courses);
+              console.log(this.courses)
             })
             .catch(e => {
-              console.error('Uchi.pro widget: не удалось получить данные курсов.');
+              console.error('Uchi.pro widget: не удалось получить данные курсов.')
               console.error(e)
             })
         },
@@ -125,15 +126,15 @@ if (container != null) {
         removeFromCart (course) {
           const itemIndex = this.cart.findIndex(item => item.course === course)
           if (itemIndex !== -1) {
-            this.cart.splice(itemIndex, 1);
+            this.cart.splice(itemIndex, 1)
           }
 
           this.saveCartToStorage()
         },
         inCart (course) {
-          return this.cart.findIndex(item => item.course.id == course.id) !== -1
+          return this.cart.findIndex(item => item.course.id === course.id) !== -1
         },
-        clearCart() {
+        clearCart () {
           this.cart = []
 
           this.saveCartToStorage()
@@ -180,10 +181,9 @@ if (container != null) {
         return createElement(App)
       }
     })
-
   } else {
-    console.error('Uchi.pro widget: токен не указан.');
+    console.error('Uchi.pro widget: токен не указан.')
   }
 } else {
-  console.error('Uchi.pro widget: контейнер не найден.');
+  console.error('Uchi.pro widget: контейнер не найден.')
 }
