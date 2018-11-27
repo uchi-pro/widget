@@ -19,7 +19,6 @@
       </div>
 
       <div class="uchi-cart-checkout">
-
         <div class="uchi-cart-checkout__total">
           Общая стоимость: {{ formatPrice(cartTotal) }}
         </div>
@@ -49,10 +48,8 @@
 
 <script>
   export default {
-    data () {
-      const data = {}
-
-      return data
+    created () {
+      this.$root.closeCart()
     },
     methods: {
       removeFromCart (course) {
