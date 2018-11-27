@@ -31,6 +31,8 @@
               class="uchi-cart-button">
         в корзину
       </button>
+
+      &nbsp;<router-link v-if="inCart(course)" :to="{ name: 'cart' }">Перейти в корзину</router-link>
     </div>
 
   </div>
