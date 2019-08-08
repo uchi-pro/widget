@@ -43,6 +43,7 @@ if (container != null) {
       routes
     })
 
+    // eslint-disable-next-line no-new
     new Vue({
       el: container,
       router,
@@ -74,10 +75,8 @@ if (container != null) {
                 resolve(response.json())
               })
               .catch(error => {
-                console.log(error)
-                console.log(container)
-
                 container.innerText = 'Не удалось получить список курсов. Попробуйте зайти позже.'
+                console.error('Uchi.pro widget: не удалось получить список курсов:', error)
               })
           })
         },
@@ -103,12 +102,9 @@ if (container != null) {
                 course.children = coursesPlainList.filter(c => c.parentId === course.id)
                 return course
               })
-
-              console.log(this.courses)
             })
-            .catch(e => {
-              console.error('Uchi.pro widget: не удалось получить данные курсов.')
-              console.error(e)
+            .catch(error => {
+              console.error('Uchi.pro widget: не удалось получить данные курсов:', error)
             })
         },
         addToCart (course, quantity) {
@@ -165,8 +161,8 @@ if (container != null) {
                   this.addToCart(course, value.quantity)
                 }
               })
-            } catch (e) {
-              console.error(e)
+            } catch (error) {
+              console.error('Uchi.pro widget:', error)
             }
           }
         },
