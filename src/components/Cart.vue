@@ -27,7 +27,7 @@
           Общая стоимость: {{ formatPrice(cartTotal) }}
         </div>
 
-        <form :action="baseUrl + '/orders-widget'" method="post" target="_blank">
+        <form :action="baseUrl + '/orders-widget'" method="post" target="_blank" @submit="clearCart">
 
           <div v-for="item in cart" :key="item.course.id">
             <input type="hidden" name="courses-uuids" :value="item.course.id">
@@ -35,7 +35,7 @@
 
           <input type="hidden" name="token-api" :value="this.$root.$data.token">
 
-          <button type="submit" class="button_buy" @click="clearCart">Оформить заказ</button>
+          <button type="submit" class="button_buy">Оформить заказ</button>
         </form>
       </div>
     </div>
@@ -56,7 +56,9 @@
         this.$root.removeFromCart(course)
       },
       clearCart () {
-        this.$root.clearCart()
+        setTimeout(() => {
+          this.$root.clearCart()
+        }, 0)
       },
     },
     computed: {
