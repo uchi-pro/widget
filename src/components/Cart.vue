@@ -30,7 +30,7 @@
         <form :action="baseUrl + '/orders-widget'" method="post" target="_blank" @submit="clearCart">
 
           <div v-for="item in cart" :key="item.course.id">
-            <input type="hidden" name="courses-uuids" :value="item.course.id">
+            <input type="hidden" name="courses" :value="item.course.id">
           </div>
 
           <input type="hidden" name="token-api" :value="this.$root.$data.token">
