@@ -69,7 +69,7 @@ if (container != null) {
           return new Promise((resolve) => {
             return fetch(`${this.baseUrl}/shop/courses?token-api=${this.token}`,
               {
-                headers: { 'Accept': 'application/json' },
+                headers: { 'Accept': 'application/json', 'X-Auth-Token': this.token },
               })
               .then(response => {
                 resolve(response.json())
