@@ -27,7 +27,7 @@
           Общая стоимость: {{ formatPrice(cartTotal) }}
         </div>
 
-        <form :action="baseUrl + '/orders-widget'" method="post" target="_blank" @submit="clearCart">
+        <form :action="baseUrl + '/shop'" method="post" target="_blank" @submit="clearCart">
 
           <div v-for="item in cart" :key="item.course.id">
             <input type="hidden" name="courses" :value="item.course.id">
