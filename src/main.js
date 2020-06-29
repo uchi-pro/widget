@@ -67,7 +67,7 @@ if (container != null) {
       methods: {
         fetchWidgetData () {
           return new Promise((resolve) => {
-            return fetch(`${this.baseUrl}/shop/courses?token-api=${this.token}`,
+            return fetch(`${this.baseUrl}/shop/courses`,
               {
                 headers: { 'Accept': 'application/json', 'X-Auth-Token': this.token },
               })
