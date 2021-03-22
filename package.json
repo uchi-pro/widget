@@ -8,21 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "vue": "^2.6.10",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.10.0",
-    "@vue/cli-plugin-eslint": "^3.10.0",
-    "@vue/cli-service": "^3.10.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
     "autoprefixer": "^9.3.1",
+    "babel-eslint": "^10.1.0",
     "eslint": "^5.9.0",
-    "eslint-config-standard": "12.x",
-    "eslint-plugin-compat": "2.x",
-    "eslint-plugin-import": "2.x",
-    "eslint-plugin-node": "7.x",
-    "eslint-plugin-promise": "4.x",
-    "eslint-plugin-standard": "4.x",
+    "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
@@ -32,10 +29,25 @@
       "autoprefixer": {}
     }
   },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-console": "off"
+    }
+  },
   "browserslist": [
-    "> 0.5%",
+    "> 1%",
     "last 2 versions",
-    "Firefox ESR",
     "not dead"
   ]
 }
