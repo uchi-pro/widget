@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && mkdir ~/git/cdn/widget/$npm_package_version && cp dist/js/app*.js ~/git/cdn/widget/$npm_package_version/uchi-widget.js && cp dist/css/app*.css ~/git/cdn/widget/$npm_package_version/uchi-widget.css",
+    "build": "vue-cli-service build && mkdir -p ~/git/cdn/widgets/catalog/v$npm_package_version && cp dist/js/app*.js ~/git/cdn/widgets/catalog/v$npm_package_version/uchi-widget.js && cp dist/css/app*.css ~/git/cdn/widgets/catalog/v$npm_package_version/uchi-widget.css && ln -sfn v$npm_package_version ~/git/cdn/widgets/catalog/v1",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
