@@ -26,6 +26,7 @@ if (container != null) {
       data: function () {
         return {
           baseUrl: baseUrl,
+          token: token,
           rootId: '00000000-0000-0000-0000-000000000000',
         }
       },
@@ -43,13 +44,14 @@ if (container != null) {
       routes
     })
 
+    const academicPlansCache = {}
+
     // eslint-disable-next-line no-new
     new Vue({
       el: container,
       router,
       data: {
         coursesFetched: false,
-        token: token,
         storageKey: 'uchi-widget:cart',
         courses: [],
         cart: [],
@@ -105,6 +107,22 @@ if (container != null) {
             })
             .catch(error => {
               console.error('Uchi.pro widget: не удалось получить данные курсов:', error)
+            })
+        },
+        fetchAcademicPlan (courseId) {
+          if (typeof academicPlansCache[courseId] === 'object') {
+            return Promise.resolve(academicPlansCache[courseId])
+          }
+
+          return fetch(`${this.baseUrl}/courses/${courseId}`,
+            {
+              headers: { 'Accept': 'application/json', 'X-Auth-Token': this.token },
+            })
+            .then(response => response.json())
+            .then(json => json.course.settings.academic_plan)
+            .then(json => {
+              academicPlansCache[courseId] = json ? JSON.parse(json) : null
+              return academicPlansCache[courseId]
             })
         },
         addToCart (course, quantity) {
