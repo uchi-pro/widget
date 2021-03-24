@@ -3,7 +3,6 @@
     <div v-for="theme in topLevelThemes" :key="theme.id" class="uchi-theme">
       <div class="uchi-theme__image">
         <router-link :to="{ name: 'theme_view', params: { id: theme.id }}">
-
           <span class="uchi-theme__count">
               {{ theme.children.length }}
               <span>
@@ -11,10 +10,10 @@
               </span>
           </span>
 
-          <img v-if="theme.imageUrl" :src="theme.imageUrl" :alt="theme.title">
-
+          <img v-if="theme.image" :src="theme.image" :alt="theme.title">
         </router-link>
       </div>
+
       <div class="uchi-theme__title">
         <router-link :to="{ name: 'theme_view', params: { id: theme.id }}">{{ theme.title }}</router-link>
       </div>

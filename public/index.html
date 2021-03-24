@@ -1,35 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>uchi-widget</title>
-  </head>
-  <body>
-
-  <div id="uchi-widget"></div>
-
-    <script type="text/javascript" >
-      (function (d, w) {
-
-        w.uchiWidget = {
-          baseUrl: "https://alsidpo.uchi.pro",
-          token: "410a2ed5-ac7c-4fca-9856-d375fb60120a"
-        };
-
-        var n = d.getElementsByTagName("script")[0],
-          s = d.createElement("script"),
-          f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = w.uchiWidget + "/widget.js";
-
-        if (w.opera == "[object Opera]") {
-          d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-      })(document, window);
-    </script>
-
-  </body>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>uchi-widget</title>
+</head>
+<body>
+  <div id="uchi-widget">Загрузка…</div>
+  <script>
+    window.uchiWidget = {
+      baseUrl: "https://next.uchi.red",
+      cdnBaseUrl: "https://cdn.uchi.pro/widget/v1",
+    };
+  </script>
+</body>
 </html>

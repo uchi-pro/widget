@@ -33,8 +33,6 @@
             <input type="hidden" name="courses" :value="item.course.id">
           </div>
 
-          <input type="hidden" name="token-api" :value="this.$root.$data.token">
-
           <button type="submit" class="button_buy">Оформить заказ</button>
         </form>
       </div>

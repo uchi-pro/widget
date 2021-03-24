@@ -35,27 +35,27 @@
       &nbsp;<router-link v-if="inCart(course)" :to="{ name: 'cart' }">Перейти в корзину</router-link>
     </div>
 
-    <div v-if="academicPlan" class="uchi-course__academic-plan-wrapper">
+    <div v-if="course.academicPlan && course.academicPlan.length" class="uchi-course__academic-plan-wrapper">
       <h3>Учебный план</h3>
 
       <table class="uchi-course__academic-plan">
         <thead>
-        <tr>
-          <th>Название</th>
-          <th>Часы</th>
-          <th>Вид занятий</th>
-        </tr>
+          <tr>
+            <th>Название</th>
+            <th>Часы</th>
+            <th>Вид занятий</th>
+          </tr>
         </thead>
+
         <tbody>
-          <tr v-for="item in academicPlan" :key="item.id">
+          <tr v-for="item in course.academicPlan" :key="item.id">
             <td>{{ item.title }}</td>
             <td>{{ item.hours > 0 ? item.hours : '—' }}</td>
-            <td>{{ item.type_title }}</td>
+            <td>{{ item.type }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 </template>
 
@@ -63,18 +63,7 @@
   export default {
     data () {
       const data = {}
-
       data.id = this.$route.params.id
-
-      data.academicPlan = null
-
-      this.$root.fetchAcademicPlan(this.$route.params.id)
-        .then(academicPlan => {
-          if (Array.isArray(academicPlan) && academicPlan.length > 0) {
-            data.academicPlan = academicPlan
-          }
-        })
-
       return data
     },
     methods: {

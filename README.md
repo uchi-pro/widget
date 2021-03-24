@@ -21,7 +21,6 @@ npm run build
   (function (d, w) {
     w.uchiWidget = {
       baseUrl: "https://foo.uchi.red",
-      token: "410a2ed5-ac7c-4fca-9856-d375fb60120a",
       cdnBaseUrl: "https://cdn.uchi.pro/widget/v1"
     };
 
