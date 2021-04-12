@@ -1,7 +1,7 @@
 .SILENT:
 .POSIX:
 
-.PHONY: all lint build serve
+.PHONY: all lint build serve clean
 
 all: build
 
@@ -13,3 +13,6 @@ build: lint
 
 serve:
 	npm run serve
+
+clean:
+	rm -rf ./dist
