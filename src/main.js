@@ -80,9 +80,6 @@ if (container != null) {
       },
       fetchCourses () {
         return this.fetchWidgetData()
-          .then(data => {
-            return data
-          })
           .then(data => data.courses || [])
           .then(fetchedCourses => {
             const coursesPlainList = fetchedCourses.map(fetchedCourse => {

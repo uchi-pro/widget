@@ -1,5 +1,5 @@
 <template>
-  <div class="uchi-themes">
+  <div v-if="topLevelThemes.length > 0" class="uchi-themes">
     <div v-for="theme in topLevelThemes" :key="theme.id" class="uchi-theme">
       <div class="uchi-theme__image">
         <router-link :to="{ name: 'theme_view', params: { id: theme.id }}">
@@ -21,6 +21,9 @@
       <div v-if="theme.description" class="uchi-theme__description" v-html="theme.description"></div>
     </div>
   </div>
+  <p v-else>
+    Нет доступных курсов.
+  </p>
 </template>
 
 <script>
