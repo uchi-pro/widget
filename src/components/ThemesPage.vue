@@ -1,3 +1,8 @@
+<script setup>
+import { plural } from '@/use/formatters.js'
+import { topLevelThemes } from '@/use/courses.js'
+</script>
+
 <template>
   <div v-if="topLevelThemes.length > 0" class="uchi-themes">
     <div v-for="theme in topLevelThemes" :key="theme.id" class="uchi-theme">
@@ -25,24 +30,6 @@
     Нет доступных курсов.
   </p>
 </template>
-
-<script>
-  export default {
-    data () {
-      const data = {}
-
-      data.expanded = {}
-
-      return data
-    },
-    computed: {
-      topLevelThemes () {
-        return this.$root.$data.courses
-          .filter(course => (course.parentId === this.rootId) && course.children.length > 0)
-      },
-    }
-  }
-</script>
 
 <style lang="scss">
   .uchi-themes {

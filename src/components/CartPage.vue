@@ -1,3 +1,13 @@
+<script setup>
+import { formatPrice } from '@/use/formatters.js'
+import { cart, inCartCoursesCount, inCartCoursesTotal, closeCart, removeFromCart, clearCart } from '@/use/cart.js'
+import { getBaseUrl } from '@/use/api.js'
+
+const baseUrl = getBaseUrl()
+
+closeCart()
+</script>
+
 <template>
   <div>
     <div class="uchi__back">
@@ -24,7 +34,7 @@
 
       <div class="uchi-cart-checkout">
         <div class="uchi-cart-checkout__total">
-          Общая стоимость: {{ formatPrice(cartTotal) }}
+          Общая стоимость: {{ formatPrice(inCartCoursesTotal) }}
         </div>
 
         <form :action="baseUrl + '/shop/cart'" method="POST" target="_blank" @submit="clearCart">
@@ -41,40 +51,6 @@
 
   </div>
 </template>
-
-<script>
-  export default {
-    created () {
-      this.$root.closeCart()
-    },
-    methods: {
-      removeFromCart (course) {
-        this.$root.removeFromCart(course)
-      },
-      clearCart () {
-        setTimeout(() => {
-          this.$root.clearCart()
-        }, 0)
-      },
-    },
-    computed: {
-      cart () {
-        return this.$root.$data.cart
-      },
-      inCartCourses () {
-        return this.$root.$data.cart
-          .map(cartItem => cartItem.course)
-      },
-      inCartCoursesCount () {
-        return this.inCartCourses.length
-      },
-      cartTotal () {
-        return this.inCartCourses
-          .reduce((total, course) => total + parseInt(course.price || 0), 0)
-      },
-    }
-  }
-</script>
 
 <style lang="scss">
   .uchi-cart-item {

@@ -24,7 +24,7 @@ npm run build
       cdnBaseUrl: "https://cdn.uchi.pro/widget/v1"
     };
 
-    var s = d.createElement("script");
+    const s = d.createElement("script");
     s.type = "text/javascript";
     s.async = true;
     s.onerror = function() {
@@ -32,7 +32,7 @@ npm run build
     };
     s.src = w.uchiWidget.cdnBaseUrl + "/uchi-widget.js";
 
-    var n = d.getElementsByTagName("script")[0];
+    const n = d.getElementsByTagName("script")[0];
     n.parentNode.insertBefore(s, n);
   }(document, window));
 </script>

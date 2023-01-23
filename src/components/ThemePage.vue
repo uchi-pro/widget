@@ -1,6 +1,17 @@
+<script setup>
+import { formatPrice } from '@/use/formatters.js'
+import { useRoute } from 'vue-router'
+import { getThemeById } from '@/use/courses.js'
+import { addToCart, inCart, removeFromCart } from '@/use/cart.js'
+
+const route = useRoute()
+const themeId = route.params.id
+const theme = getThemeById(themeId)
+
+</script>
+
 <template>
   <div>
-
     <div class="uchi__back">
         <router-link :to="{ name: 'theme_list' }">&larr; Вернуться к списку всех направлений</router-link>
     </div>
@@ -29,38 +40,6 @@
     </div>
   </div>
 </template>
-
-<script>
-  export default {
-    data () {
-      const data = {}
-
-      data.id = this.$route.params.id
-
-      return data
-    },
-    methods: {
-      addToCart (course, quantity) {
-        this.$root.addToCart(course, quantity)
-      },
-      removeFromCart (course) {
-        this.$root.removeFromCart(course)
-      },
-      inCart (course) {
-        return this.$root.inCart(course)
-      },
-      clearCart () {
-        this.$root.clearCart()
-      },
-    },
-    computed: {
-      theme () {
-        return this.$root.$data.courses.filter(course => course.id === this.id)[0] || null
-      }
-    }
-  }
-</script>
-
 
 <style lang="scss">
   .uchi-course-teaser {
