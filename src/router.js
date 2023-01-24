@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import ThemesPage from '@/components/ThemesPage.vue'
-import ThemePage from '@/components/ThemePage.vue'
-import CoursePage from '@/components/CoursePage.vue'
-import CartPage from '@/components/CartPage.vue'
+import ThemesPage from '@/components/pages/ThemesPage.vue'
+import ThemePage from '@/components/pages/ThemePage.vue'
+import CoursePage from '@/components/pages/CoursePage.vue'
+import CartPage from '@/components/pages/CartPage.vue'
 
 const routes = [
   { name: 'theme_list', path: '/', component: ThemesPage },

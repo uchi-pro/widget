@@ -53,44 +53,44 @@ closeCart()
 </template>
 
 <style lang="scss">
-  .uchi-cart-item {
-    display: flex;
-    padding: 10px 0;
-    border-bottom: 1px solid #cccccc;
+.uchi-cart-item {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #cccccc;
 
-    &__title {
-      flex: 1;
-    }
+  &__title {
+    flex: 1;
+  }
 
-    &__price {
-      width: 100px;
-      text-align: center;
-    }
+  &__price {
+    width: 100px;
+    text-align: center;
+  }
 
-    &__remove {
-      width: 50px;
-      text-align: center;
+  &__remove {
+    width: 50px;
+    text-align: center;
 
-      span {
-        font-size: 24px;
-        font-weight: bold;
-        display: inline-block;
-        margin-top: -4px;
-        cursor: pointer;
+    span {
+      font-size: 24px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: -4px;
+      cursor: pointer;
 
-        &:hover {
-          color: red;
-        }
+      &:hover {
+        color: red;
       }
     }
   }
+}
 
-  .uchi-cart-checkout {
-    margin-top: 15px;
-    text-align: right;
+.uchi-cart-checkout {
+  margin-top: 15px;
+  text-align: right;
 
-    &__total {
-      margin: 20px 0 20px 0;
-    }
+  &__total {
+    margin: 20px 0 20px 0;
   }
+}
 </style>

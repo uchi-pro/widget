@@ -46,6 +46,7 @@ fetchCourses()
       </div>
     </div>
   </div>
+  <div v-else>Загрузка курсов...</div>
 </template>
 
 <style lang="scss">
