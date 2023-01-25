@@ -17,14 +17,13 @@ closeCart()
     <h1>Корзина</h1>
 
     <div v-if="inCartCoursesCount > 0">
-
       <div class="uchi-cart-table">
         <div v-for="item in cart" :key="item.course.id" class="uchi-cart-item">
           <div class="uchi-cart-item__title">
             <router-link :to="{ name: 'course_view', 'params': { id: item.course.id }}">{{ item.course.title }}</router-link>
           </div>
           <div class="uchi-cart-item__price">
-            {{ formatPrice(item.course.price) }}
+            {{ !item.course.createLead ? formatPrice(item.course.price) : 'Стоимость по&nbsp;запросу' }}
           </div>
           <div class="uchi-cart-item__remove">
             <span @click="removeFromCart(item.course)" title="Убрать из корзины">&times;</span>
@@ -63,7 +62,7 @@ closeCart()
   }
 
   &__price {
-    width: 100px;
+    width: 150px;
     text-align: center;
   }
 

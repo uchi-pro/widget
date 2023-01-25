@@ -26,7 +26,7 @@ const theme = getThemeById(course.parentId)
     </div>
 
     <div class="uchi-course__price">
-      Стоимость: {{ formatPrice(course.price) }}
+      Стоимость: {{ !course.createLead ? formatPrice(course.price) : 'по&nbsp;запросу' }}
     </div>
 
     <div v-html="course.description" class="uchi-course__description"></div>

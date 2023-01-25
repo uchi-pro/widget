@@ -43,7 +43,9 @@ watch(
         <div class="uchi-course-teaser__title">
           <router-link :to="{ name: 'course_view', params: { id: course.id } }">{{ course.title }}</router-link>
         </div>
-        <div class="uchi-course-teaser__price">{{ formatPrice(course.price) }}</div>
+        <div class="uchi-course-teaser__price">
+          {{ !course.createLead ? formatPrice(course.price) : 'Стоимость по&nbsp;запросу' }}
+        </div>
         <div class="uchi-course-teaser__cart">
           <button v-if="inCart(course)"
                   @click="removeFromCart(course)"

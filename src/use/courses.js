@@ -17,6 +17,7 @@ const prepareCourse = function (fetchedItem) {
     image: fetchedItem.image,
     hours: fetchedItem.hours,
     price: fetchedItem.price,
+    createLead: fetchedItem.shop_settings?.create_leads ?? false,
     lessonsCount: fetchedItem.lessons_count,
     academicPlan: fetchedItem.academic_plan,
   }
