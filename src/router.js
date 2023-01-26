@@ -15,6 +15,15 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from) {
+    if (!from.name && to.fullPath === '/') {
+      return;
+    }
+    return {
+      el: '#uchi-widget',
+      top: 40,
+    }
+  },
 })
 
 export default router
