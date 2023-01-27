@@ -2,12 +2,12 @@
 import { plural } from '@/use/formatters.js'
 import { defineProps, ref } from 'vue'
 
-const props = defineProps({ theme: Object })
+const props = defineProps({ theme: Object, width: Number })
 const theme = ref(props.theme)
 </script>
 
 <template>
-  <div class="uchi-theme">
+  <div class="uchi-theme" :style="{width: props.width + 'px'}">
     <div class="uchi-theme__image">
       <router-link :to="{ name: 'theme_view', params: { id: theme.id }}">
           <span class="uchi-theme__count">
@@ -37,7 +37,7 @@ const theme = ref(props.theme)
   &__image {
     position: relative;
     overflow: hidden;
-    height: 160px;
+    aspect-ratio: 3 / 2;
     background-color: #eeeeee;
 
     a {
