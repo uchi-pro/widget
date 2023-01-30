@@ -65,7 +65,7 @@ export function restoreCartFromStorage () {
         }
       })
     } catch (error) {
-      console.error('Uchi.pro widget:', error)
+      console.error('Uchi.pro widget: не удалось восстановить содержимое корзины: ', error)
     }
   }
 }

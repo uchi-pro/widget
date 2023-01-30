@@ -48,16 +48,12 @@ const calculateCourses = function (items, parentId) {
 
 export function fetchCourses () {
   return fetchWidgetData()
-    .then(data => data.courses ?? [])
     .then(fetchedItems => {
       let preparedItems = fetchedItems.map(prepareCourse)
       calculateCourses(preparedItems)
 
       themes = preparedItems.filter(theme => theme.isTheme && theme.coursesCount > 0)
       courses = preparedItems.filter(course => course.isCourse)
-    })
-    .catch(error => {
-      console.error('Uchi.pro widget: не удалось получить данные курсов:', error)
     })
 }
 

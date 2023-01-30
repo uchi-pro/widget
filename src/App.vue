@@ -6,47 +6,57 @@ import { restoreCartFromStorage } from '@/use/cart.js'
 import { isCartOpened, closeCart, toggleCart, inCartCoursesCount, inCartCoursesTotal } from '@/use/cart.js'
 
 const coursesFetched = ref(false)
+const errorMessage = ref('')
 
 fetchCourses()
   .then(() => {
     coursesFetched.value = true
     restoreCartFromStorage()
   })
+  .catch(error => {
+    console.error('Uchi.pro widget: Не удалось получить список курсов: ', error)
+    errorMessage.value = 'Не удалось получить список курсов.'
+  })
 </script>
 
 <template>
-  <div v-if="coursesFetched" class="uchi">
-    <div class="uchi__body">
-      <router-view></router-view>
-    </div>
+  <p v-if="errorMessage">
+    {{ errorMessage }}
+  </p>
+  <template v-else>
+    <div v-if="!coursesFetched">Загрузка курсов...</div>
+    <div v-else class="uchi">
+      <div class="uchi__body">
+        <router-view></router-view>
+      </div>
 
-    <div class="uchi-cart" :class="{ 'uchi-cart_opened' : isCartOpened }">
-      <a @click="toggleCart()" class="uchi-cart__toggle"
-         :title=" isCartOpened ? 'Закрыть корзину' : 'Открыть корзину' ">
-        <span>Корзина</span>
-      </a>
-      <span @click="closeCart()" class="uchi-cart__close" title="Закрыть корзину">&times;</span>
-      <div class="uchi-cart__content">
+      <div class="uchi-cart" :class="{ 'uchi-cart_opened' : isCartOpened }">
+        <a @click="toggleCart()" class="uchi-cart__toggle"
+           :title=" isCartOpened ? 'Закрыть корзину' : 'Открыть корзину' ">
+          <span>Корзина</span>
+        </a>
+        <span @click="closeCart()" class="uchi-cart__close" title="Закрыть корзину">&times;</span>
+        <div class="uchi-cart__content">
 
-        <div v-if="inCartCoursesCount > 0">
-          В Вашей корзине:<br>
-          {{ inCartCoursesCount }} {{ plural(inCartCoursesCount, 'курс', 'курса', 'курсов')}}
-          на сумму {{ formatPrice(inCartCoursesTotal) }}
+          <div v-if="inCartCoursesCount > 0">
+            В Вашей корзине:<br>
+            {{ inCartCoursesCount }} {{ plural(inCartCoursesCount, 'курс', 'курса', 'курсов')}}
+            на сумму {{ formatPrice(inCartCoursesTotal) }}
 
-          <ul>
-            <li>
-              <router-link :to="{ name: 'cart' }">Перейти в корзину</router-link>
-            </li>
-          </ul>
+            <ul>
+              <li>
+                <router-link :to="{ name: 'cart' }">Перейти в корзину</router-link>
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            Корзина пуста
+          </div>
+
         </div>
-        <div v-else>
-          Корзина пуста
-        </div>
-
       </div>
     </div>
-  </div>
-  <div v-else>Загрузка курсов...</div>
+  </template>
 </template>
 
 <style lang="scss">

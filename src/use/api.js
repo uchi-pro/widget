@@ -15,8 +15,10 @@ export function fetchWidgetData () {
     },
   })
     .then(response => response.json())
-    .catch(error => {
-      alert('Не удалось получить список курсов.')
-      console.error('Uchi.pro widget: не удалось получить список курсов:', error)
+    .then(data => {
+      if (!Array.isArray(data.courses)) {
+        throw new Error('В ответе сервера отсутствует поле курсов')
+      }
+      return data.courses
     })
 }
