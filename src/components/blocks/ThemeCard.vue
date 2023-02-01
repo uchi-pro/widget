@@ -36,7 +36,6 @@ const theme = ref(props.theme)
 
   &__image {
     position: relative;
-    overflow: hidden;
     aspect-ratio: 3 / 2;
     background-color: #eeeeee;
 
@@ -55,11 +54,12 @@ const theme = ref(props.theme)
   &__count {
     width: 70px;
     height: 70px;
+    border: 1px solid currentColor;
     border-radius: 50%;
     background: #fff;
     position: absolute;
-    top: -16px;
-    right: -10px;
+    top: -1ch;
+    right: -0.75ch;
     z-index: 1;
     display: flex;
     align-items: center;
@@ -77,7 +77,6 @@ const theme = ref(props.theme)
   }
 
   &__title {
-    margin-left: 8px;
     margin-top: 25px;
     margin-bottom: 10px;
 
