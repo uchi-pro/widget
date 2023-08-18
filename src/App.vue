@@ -150,6 +150,11 @@ $cart_label_width: 30px;
     max-width: 600px;
     display: flex;
 
+    * {
+      min-height: 30px;
+      margin: 0;
+    }
+
     input {
       flex: 1;
     }
