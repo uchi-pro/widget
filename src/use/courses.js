@@ -76,3 +76,8 @@ export function getThemeCourses (themeId) {
 export function getTopLevelThemes () {
   return themes.filter(theme => theme.parentId === rootId)
 }
+
+export function searchCourses (q) {
+  let preparedQ = q.toLowerCase().trim()
+  return courses.filter(course => course.title.toLowerCase().includes(preparedQ))
+}

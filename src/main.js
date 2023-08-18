@@ -16,6 +16,9 @@ if (container != null) {
   document.getElementsByTagName('head')[0].appendChild(link)
 
   const app = createApp(App)
+
+  app.provide('searchEnabled', window.uchiWidget.searchEnabled ?? false);
+
   app.use(router)
   app.mount(container)
 

@@ -144,5 +144,15 @@ $cart_label_width: 30px;
   &__back {
     margin-bottom: 10px;
   }
+
+  &__search-form {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+
+    input {
+      flex: 1;
+    }
+  }
 }
 </style>

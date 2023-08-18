@@ -2,12 +2,19 @@
 import { defineProps } from 'vue'
 import { formatPrice } from '@/use/formatters.js'
 import { addToCart, inCart, removeFromCart } from '@/use/cart.js'
+import { getThemeById } from '@/use/courses.js'
 
-defineProps({
+const props = defineProps({
   course: {
     type: Object,
+  },
+  showTheme: {
+    type: Boolean,
+    default: () => { return false }
   }
 })
+
+const theme = getThemeById(props.course.parentId)
 </script>
 
 <template>
@@ -17,6 +24,11 @@ defineProps({
     </div>
     <div class="uchi-course-teaser__price">
       {{ !course.createLead ? formatPrice(course.price) : 'Стоимость по&nbsp;запросу' }}
+    </div>
+    <div v-if="showTheme" class="uchi-course-teaser__theme">
+      <template v-if="theme">
+        {{ theme.title }}
+      </template>
     </div>
     <div class="uchi-course-teaser__cart">
       <button v-if="inCart(course)"
@@ -45,6 +57,11 @@ defineProps({
 
   &__price {
     width: 150px;
+    text-align: center;
+  }
+
+  &__theme {
+    width: 250px;
     text-align: center;
   }
 
