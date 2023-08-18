@@ -21,7 +21,8 @@ npm run build
   (function (d, w) {
     w.uchiWidget = {
       baseUrl: "https://foo.uchi.red",
-      cdnBaseUrl: "https://cdn.uchi.pro/widget/v1"
+      cdnBaseUrl: "https://cdn.uchi.pro/widget/v1",
+      searchEnabled: true,
     };
 
     const s = d.createElement("script");
