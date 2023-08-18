@@ -13,10 +13,12 @@ const theme = getThemeById(course.parentId)
 <template>
   <template v-if="course">
     <div class="uchi__back">
-      <router-link :to="{ name: 'theme_view', params: { id: theme.id } }">&larr; Вернуться к списку курсов направления</router-link>
+      <router-link v-if="theme" :to="{ name: 'theme_view', params: { id: theme.id } }">&larr; Вернуться к списку курсов направления</router-link>
+      <router-link v-else :to="{ name: 'theme_list' }">&larr; Вернуться к списку всех направлений</router-link>
     </div>
 
-    <h1>Учебный курс по направлению «{{ theme.title }}»</h1>
+    <h1 v-if="theme">Учебный курс по направлению «{{ theme.title }}»</h1>
+    <h1 v-else>Учебный курс</h1>
 
     <div class="uchi-course__title-wrapper">
       <div class="uchi-course__title-label">Название курса:</div>
