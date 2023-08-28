@@ -40,7 +40,7 @@ closeCart()
           <div v-for="item in cart" :key="item.course.id">
             <input type="hidden" name="course" :value="item.course.id"/>
           </div>
-          <button type="submit" class="button_buy">Оформить заказ</button>
+          <button type="submit" class="button_buy uchi-cart-button btn btn-primary button">Оформить заказ</button>
         </form>
       </div>
     </div>

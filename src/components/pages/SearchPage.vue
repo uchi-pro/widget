@@ -48,7 +48,7 @@ const onSearchFormSubmit = (e) => {
   <h1>Поиск</h1>
   <form @submit.prevent="onSearchFormSubmit" class="uchi__search-form">
     <input type="text" :value="q">
-    <button type="submit">Найти</button>
+    <button type="submit" class="uchi-cart-button btn btn-primary button">Найти</button>
   </form>
 
   <div class="uchi__search-results">

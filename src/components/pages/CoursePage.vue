@@ -36,12 +36,12 @@ const theme = getThemeById(course.parentId)
     <div>
       <button v-if="inCart(course)"
               @click="removeFromCart(course)"
-              class="uchi-cart-button uchi-cart-button_in-cart">
+              class="uchi-cart-button uchi-cart-button_in-cart btn btn-primary button">
         в корзине
       </button>
       <button v-else
               @click="addToCart(course)"
-              class="uchi-cart-button">
+              class="uchi-cart-button btn btn-primary button">
         в корзину
       </button>
 

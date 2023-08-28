@@ -30,7 +30,7 @@ const onSearchFormSubmit = function (e) {
   <div v-if="searchEnabled">
     <form @submit.prevent="onSearchFormSubmit" class="uchi__search-form">
       <input type="text" placeholder="Введите название курса">
-      <button type="submit">Поиск</button>
+      <button type="submit" class="uchi-cart-button btn btn-primary button">Поиск</button>
     </form>
   </div>
   <themes-card v-if="topLevelThemes.length > 0" :themes="topLevelThemes" />
