@@ -17,7 +17,7 @@ if (container != null) {
 
   const app = createApp(App)
 
-  app.provide('searchEnabled', window.uchiWidget.searchEnabled ?? false);
+  app.provide('searchEnabled', window.uchiWidget.searchEnabled ?? true);
 
   app.use(router)
   app.mount(container)
