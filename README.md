@@ -22,6 +22,7 @@ npm run build
       baseUrl: "https://gl.upft.ru",
       cdnBaseUrl: "https://cdn.uchi.pro/widget/v2",
       searchEnabled: true, // Нужно ли показывать форму поиска курсов по их названию
+      academicPlanEnabled: true, // Нужно ли показывать учебный план на странице курса
     };
 
     d.addEventListener("DOMContentLoaded", function () {

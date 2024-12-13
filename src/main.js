@@ -18,6 +18,7 @@ if (container != null) {
   const app = createApp(App)
 
   app.provide('searchEnabled', window.uchiWidget.searchEnabled ?? true);
+  app.provide('academicPlanEnabled', window.uchiWidget.academicPlanEnabled ?? true);
 
   app.use(router)
   app.mount(container)

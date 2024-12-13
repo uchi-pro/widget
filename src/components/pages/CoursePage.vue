@@ -3,11 +3,14 @@ import { formatPrice } from '@/use/formatters.js'
 import { useRoute } from 'vue-router'
 import { getCourseById, getThemeById } from '@/use/courses.js'
 import { addToCart, removeFromCart, inCart } from '@/use/cart.js'
+import { inject } from 'vue'
 
 const route = useRoute()
 const id = route.params.id
 const course = getCourseById(id)
 const theme = getThemeById(course.parentId)
+
+const academicPlanEnabled = inject('academicPlanEnabled')
 </script>
 
 <template>
@@ -48,7 +51,7 @@ const theme = getThemeById(course.parentId)
       &nbsp;<router-link v-if="inCart(course)" :to="{ name: 'cart' }">Перейти в корзину</router-link>
     </div>
 
-    <div v-if="course.academicPlan && course.academicPlan.length" class="uchi-course__academic-plan-wrapper">
+    <div v-if="academicPlanEnabled && course.academicPlan && course.academicPlan.length" class="uchi-course__academic-plan-wrapper">
       <h3>Учебный план</h3>
 
       <table class="uchi-course__academic-plan">
