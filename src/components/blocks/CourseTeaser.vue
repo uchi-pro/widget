@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import { formatPrice } from '@/use/formatters.js'
 import { addToCart, inCart, removeFromCart } from '@/use/cart.js'
 import { getThemeById } from '@/use/courses.js'

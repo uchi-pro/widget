@@ -1,6 +1,6 @@
 <script setup>
 import { plural } from '@/use/formatters.js'
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({ theme: Object, width: Number })
 const theme = ref(props.theme)
